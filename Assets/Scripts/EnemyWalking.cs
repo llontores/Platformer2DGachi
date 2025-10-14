@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(SpriteRenderer))]
 public class EnemyWalking : MonoBehaviour
 {
@@ -41,7 +38,7 @@ public class EnemyWalking : MonoBehaviour
             }
         }
 
-        _spriteRenderer.flipX = (transform.position.x == _leftEdge.position.x) ? true :
-        (transform.position.x == _rightEdge.position.x) ? false : _spriteRenderer.flipX;
+        _spriteRenderer.flipX = (transform.position.x == _leftEdge.position.x) ? false :
+        (transform.position.x == _rightEdge.position.x) ? true : _spriteRenderer.flipX;
     }
 }

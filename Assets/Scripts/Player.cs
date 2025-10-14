@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
 
 public class Player : MonoBehaviour
 {
@@ -29,9 +28,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-
-        Debug.Log(_isGrounded);
-
+        print(_isGrounded);
+        
         if (Input.GetKey(KeyCode.D))
         {
             transform.Translate(_speed * Time.deltaTime, 0, 0);
@@ -59,7 +57,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.collider.TryGetComponent(out Ground ground))
+        if(collision.collider.TryGetComponent(out Ground _))
         {
             _isGrounded = true;
         }

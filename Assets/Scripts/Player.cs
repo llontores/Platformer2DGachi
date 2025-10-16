@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(BoxCollider2D))]
@@ -13,10 +14,22 @@ public class Player : MonoBehaviour
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
 
+    public event UnityAction<int> OnMoneyChanged;
     private SpriteRenderer _spriteRenderer;
     private Rigidbody2D _rigidBody2D;
     private Animator _animator;
     private bool _isGrounded;
+    private int _money = 0;
+
+    private void OnEnable()
+    {
+        Strawberry.OnCollected += AddMoney;
+    }
+
+    private void OnDisable()
+    {
+        Strawberry.OnCollected -= AddMoney;
+    }
 
     private void Start()
     {
@@ -24,6 +37,7 @@ public class Player : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
         _isGrounded = true;
+        OnMoneyChanged?.Invoke(_money);
     }
 
     private void Update()
@@ -61,5 +75,11 @@ public class Player : MonoBehaviour
         {
             _isGrounded = true;
         }
+    }
+
+    private void AddMoney()
+    {
+        _money++;
+        OnMoneyChanged?.Invoke(_money);
     }
 }

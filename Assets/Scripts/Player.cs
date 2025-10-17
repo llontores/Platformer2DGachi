@@ -21,16 +21,6 @@ public class Player : MonoBehaviour
     private bool _isGrounded;
     private int _money = 0;
 
-    private void OnEnable()
-    {
-        Strawberry.OnCollected += AddMoney;
-    }
-
-    private void OnDisable()
-    {
-        Strawberry.OnCollected -= AddMoney;
-    }
-
     private void Start()
     {
         _rigidBody2D = GetComponent<Rigidbody2D>();
@@ -77,9 +67,15 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void AddMoney()
+    public void SubscribeMoney(Strawberry strawberry)
+    {
+        strawberry.OnCollected += AddMoney;
+    }
+
+    private void AddMoney(Strawberry strawberry)
     {
         _money++;
+        strawberry.OnCollected -= AddMoney;
         OnMoneyChanged?.Invoke(_money);
     }
 }

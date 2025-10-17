@@ -288,6 +288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefab: {fileID: 5702852939644160505, guid: 4c6b628864b6c354db09afc1370c1c51, type: 3}
   _delay: 3
+  _player: {fileID: 1820970452}
 --- !u!4 &48384281
 Transform:
   m_ObjectHideFlags: 0

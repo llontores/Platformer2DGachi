@@ -5,6 +5,7 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] private GameObject _prefab;
     [SerializeField] private int _delay;
+    [SerializeField] private Player _player;
 
     private Transform[] _spawners;
 
@@ -25,7 +26,13 @@ public class Spawner : MonoBehaviour
                 i = 1;
             }
 
-            Instantiate(_prefab, _spawners[i].position, Quaternion.identity);
+            GameObject spawned = Instantiate(_prefab, _spawners[i].position, Quaternion.identity);
+
+            if (spawned.TryGetComponent<Strawberry>(out Strawberry strawberry))
+            {
+                _player.SubscribeMoney(strawberry);
+            }
+            
             yield return delay;
         }
     }
